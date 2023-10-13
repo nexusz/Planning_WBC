@@ -1,0 +1,1332 @@
+{
+	"templates":{
+		"barge_schedule":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/schedules/barge_schedule.json"]}},
+		"container_planning_details":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/container_planning_details.json"]}},
+		"barge_planning":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/planning.json"]}},
+		"bargeplanning_list":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/orderbargelistplanning.json"]}},
+		"bargeplanning_list2":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/orderbargelistplanning2.json"]}},
+		"orderbargelistplanning_modality":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/orderbargelistplanning_modality.json"]}},
+		"orderbargelistplanning_termdif":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/orderbargelistplanning_termdif.json"]}},
+
+		"inlandterminal_dropdown":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/inlandterminal_dropdown.json"]}},
+		"messages":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/message.json"]}},
+		"shortened_orderbargeplanning":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/shortened_orderbargeplanning.json"]}},
+
+		"terminaltimeline":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/terminaltimeline.json"]}},
+		"terminaltimeline_manual":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/terminaltimeline_manual.json"]}},
+
+
+		"push_the_plan":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/addition/push_the_plan2.json"]}}
+
+		
+	},
+	"db":{
+		"morphjs":"mongodb://localhost:27017/morphjs"
+	},
+	"messageSettings":{
+		"enable":false,
+		"authheader" : {"X-API-Key":"6ca7812f-2323-40b3-b1e1-90e1baa68c83"},
+		"url":"http://84.38.232.113:50371/NEXUSZ/PlanningOptimizer"
+	},
+	"url":{
+		"$declareVariable":{
+			"meteorUrl":{
+				"$if":{"$getVariable":"env.INTERNAL_INSIGHT_URL"},
+				"$then":{"$getVariable":"env.INTERNAL_INSIGHT_URL"},
+				"$else":{
+					"$if":{"$utils.eq":["$env.MORPHJS_MODE","DEVELOPMENT"]},"$then":{
+						"$if":{"$utils.eq":["$env.MORPHJS_USER","dm"]},
+						"$then":"http://localhost:3000",
+						"$else":"http://89.200.202.135:80"
+					},
+					"$else":"http://localhost:80"
+				}
+			}
+		},
+		"FormData":{"$meteorUrl.concat":"/collectionapi/form_data"},
+		"ListRow":{"$meteorUrl.concat":"/collectionapi/list_rows"},
+		"packageapi":{"$meteorUrl.concat":"/collectionpackageapi"},
+		"logwatcher":"http://localhost:8008/log"
+	},
+	"propose_barge":{
+		"time_begin":259200000,
+		"importThreshold":10,
+		"exportThreshold":10,
+		"totalThreshold":10,
+
+		"inlandterminals":{
+			"GRO":{
+				"inlandterminal" : "GRO",
+				"key":"G",
+				"inharbor_time":129600000,
+				"harbor_inland_time":129600000,
+				"inland_time":129600000,
+				"inland_harbor_time":129600000,
+				"capacity" : 156,
+				"size" : 80,
+				"capacityweight" : 2450000,
+				"maxh" : 72
+			},
+			"LEE":{
+				"inlandterminal" : "LEE",
+				"key":"L",
+				"inharbor_time":129600000,
+				"harbor_inland_time":129600000,
+				"inland_time":129600000,
+				"inland_harbor_time":129600000,
+				"capacity" : 156,
+				"size" : 80,
+				"capacityweight" : 2450000,
+				"maxh" : 72
+			},
+			"MEP":{
+				"inlandterminal" : "MEP",
+				"key":"M",
+				"inharbor_time":129600000,
+				"harbor_inland_time":129600000,
+				"inland_time":129600000,
+				"inland_harbor_time":129600000,
+				"capacity" : 156,
+				"size" : 80,
+				"capacityweight" : 2450000,
+				"maxh" : 72
+			},
+			"IJDT":{
+				"inlandterminal" : "IJDT",
+				"key":"K",
+				"inharbor_time":129600000,
+				"harbor_inland_time":129600000,
+				"inland_time":129600000,
+				"inland_harbor_time":129600000,
+				"capacity" : 156,
+				"size" : 80,
+				"capacityweight" : 2450000,
+				"maxh" : 72
+			}
+		}
+	},
+	"containers_planning":{
+		"travelTimes":[
+			["VOS","OCT","2:00"],
+			["VOS","MCT","4:00"],
+			["VOS","RWG","8:00"],
+			["VOS","EUROMAX","8:00"],
+			["VOS","EMX","8:00"],
+			["VOS","APM1","8:00"],
+			["VOS","APM2","8:00"],
+			["VOS","APMT1","8:00"],
+			["VOS","APMT2","8:00"],
+			["VOS","DDE","8:00"],
+			["VOS","ECTDELTA","8:00"],
+			["VOS","DDN","8:00"],
+			["VOS","STAD","6:00"],
+			["VOS","STADTERM","6:00"],
+			["OCT","RWG","6:00"],
+			["OCT","EUROMAX","6:00"],
+			["OCT","EMX","6:00"],
+			["OCT","APM1","6:00"],
+			["OCT","APM2","6:00"],
+			["OCT","APMT1","6:00"],
+			["OCT","APMT2","6:00"],
+			["OCT","DDE","6:00"],
+			["OCT","DDN","6:00"],
+			["OCT","ECTDELTA","6:00"],
+			["OCT","STAD","4:00"],
+			["OCT","STADTERM","4:00"],
+			["OCT","MCT","2:00"],
+			["MCT","RWG","5:00"],
+			["MCT","EUROMAX","6:00"],
+			["MCT","EMX","6:00"],
+			["MCT","APM1","6:00"],
+			["MCT","APM2","6:00"],
+			["MCT","APMT1","6:00"],
+			["MCT","APMT2","6:00"],
+			["MCT","DDE","6:00"],
+			["MCT","STADTERM","3:00"],
+			["MCT","ECTDELTA","6:00"],
+			["MCT","DDN","5:00"],
+			["MCT","STAD","3:00"],
+			["seaterminal","seaterminal","0:30"]
+		],
+		"description terminalAlias":"alow to visit is schedule",
+		"terminalAlias":{
+			"ECTDELTA":["ECTDDE","ECTDELTA", "DDE"],
+			"DDN":["ECTDDN","DDN"],
+			"DDW":["ECTDDW","DDW"],
+			"VOS":["VOS","BTT"],
+			"APMT1":["APMTI","APMT1","APM1","APMR"],
+			"APMT2":["APMTII","APMT2","APM2"],
+			"RCT":["RCT","DCS"],
+			"EMX":["EMX"],
+			"STADTERM":["STADTERM","KRA", "CETEM", "PROGECO", "UWT", "WHT", "UCTEEM", "RSTNOORD", "RSTZUID", "MBC","BCW","CETEM","CTTPERNI","MATR","MEDBC","MRSCITY","MRSPERNI","PROGR3","RSTN","RSTZ","STEINBEA","UCT","UCT2","UCT3","UCT5","UWTP7","WBT","WHT","LCG","OCC"],
+			"MCT":["MCT","MCTetd"],
+			"K364":["K364","K1718","K1742","K913", "K869","K1700"]
+
+
+		},
+		"containerTerminalAlias":{
+			"BTT":"VOS"
+		},
+		"fixIfCallModalityInlandterminal":[
+		],
+		"terminalHandling":{
+			"ECTDELTA":[
+				{
+					"day":1,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":200
+				},
+				{
+					"day":2,
+					"arrivalFrom":0,
+					"arrivalTo":72000000,
+					"moves":310
+				},
+				{
+					"day":4,
+					"arrivalFrom":0,
+					"arrivalTo":50400000,
+					"moves":310
+				},
+				{
+					"day":4,
+					"arrivalFrom":72000000,
+					"arrivalTo":100800000,
+					"moves":200
+				},
+				{
+					"day":5,
+					"arrivalFrom":28800000,
+					"arrivalTo":68400000,
+					"moves":275
+				},
+				{
+					"day":0,
+					"arrivalFrom":14400000,
+					"arrivalTo":57600000,
+					"moves":250
+				}
+			],
+			"EMX":[
+				{
+					"day":1,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":250
+				},
+				{
+					"day":3,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":250
+				}
+			],
+			"APMT1":[
+				{
+					"day":2,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":125
+				},
+				{
+					"day":4,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":130
+				},
+				{
+					"day":5,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":125
+				}
+			],
+			"APMT2":[
+				{
+					"day":2,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":300
+				},
+				{
+					"day":4,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":200
+				},
+				{
+					"day":0,
+					"arrivalFrom":0,
+					"arrivalTo":86400000,
+					"moves":300
+				}
+			]
+		},
+		
+		"inlandTerminals":[
+			"VOS",
+			"OCT",
+			"MCT"
+		],
+		"defaults":{
+			"closing":{
+				"margin":900000,
+				"generated":{
+					"timeshift":604800000  
+				},
+				"cargoopeningMargin":0,
+				"cargoopeningDefaultTimeshift":518400000 
+			},
+			"pickup":{
+				"margin":0,
+				"latestpickupMargin":21600000
+			},
+			"truckTripDuration":{
+				"terminalLoading":300000,
+				"terminalDischarge":300000,
+				"toClient":1800000,
+				"fromClient":1800000,
+				"fromClientPerTerminal":{
+					"MEP":3600000
+				},
+				"toClientPerTerminal":{
+					"MEP":3600000
+				},
+				"coupleDecouple":1200000,
+				"loadingDischarge":3600000
+			},
+			"truckDelays":{
+				"inlandLoadContainerTime":300000,
+				"clientContainerDelay":300000,
+				"clientDecoupleDelay":300000
+			},
+			"inlandTerminalDelays":{
+				"inlandTerminalDelay":600000
+			},
+			"harbor":{
+				"description":"taken into account for terminal working times",
+				"toTerminalTime":10800000,
+				"fromTerminalTime":10800000
+			},
+			"truckWorkingSchedule": [
+				{
+					"day" : "1",
+					"dayname" : "Monday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				},
+				{
+					"day" : "2",
+					"dayname" : "Tuesday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				},
+				{
+					"day" : "3",
+					"dayname" : "Wednesday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				},
+				{
+					"day" : "4",
+					"dayname" : "Thursday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				},
+				{
+					"day" : "5",
+					"dayname" : "Friday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				}
+			]
+		},
+		"bargeplanning":{
+			"end_voyage_timewindow":4838400000
+		},
+			"bergeplanning_filters":[
+			{
+				"name":"filterModalitySelected",
+				"description":"select modality call",
+				"enable":true
+			},
+			{
+				"name":"filterEarliestOne",
+				"description":"select earliest possible candidate",
+				"enable":true
+			},
+			{
+				"name":"filterPreferredContainer",
+				"description":"if container is preffered then select it the faster the possible",
+				"enable":false
+			},
+			{
+				"name":"filterPreferredBarge",
+				"description":"according to the busines rules some barges are more preffered. For example Bodensee and Mironi business rule: only transport containers from BTTBOZ and VOS when there is a call and give it a higher preference",
+				"enable":false
+			},
+			{
+				"name":"filterNotVia",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterInlandDate",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterModalityPickupClosing",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterPreference",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterBookingnumber",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterCloseToPickupCargoopening",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterSameTerminal",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterNTerminals_2",
+				"description":"",
+				"enable":false
+			}
+		],
+		"bargeschedule":{
+			"endtimewindow":5443200000 
+		},
+		"bargeplanning_voyage_info_descriptions":{
+			"selected":{
+				"_default":"Selected",
+				"softfixing":"Selected: soft fix (previously selected)",
+				"one_candidate":"Selected: one candidate",
+				"modality_time_fixed":"Selected: manual fix (1)",
+				"manually":"Selected: manually fix (2)",
+				"not_planning_by_nexusz":"Selected: locked"
+			},
+			"candidate":{
+				"_default":"Candidate"
+			},
+			"rejected":{
+				"_default":"Rejected",
+				"teu_capacity":"Rejected: teu capacity exceeded",
+				"weight_capacity":"Rejected: weight capacity exceeded",
+				"hc_capacity":"Rejected: HC capacity exceeded",
+				"inlandtimes_conflict":"Rejected: itime window on inland",
+				"minhandlings_not_reach":"Rejected: minimal call size not reached",
+				"teu_maxhandlings":"Rejected: maximum call size exceeded",
+				"dde_ddn":"Rejected: DDN - DDE over drive exceeded (10 containers only)",
+				"terminal_visit_handlings":"Rejected: maximum call size exceeded"
+			},
+			"notconsidered":{
+				"planning_by_nexusz":"Not considered: not planned by NexusZ",
+				"aperak_do_not_plan":"Not considered: not planned because of aperak message",
+				"_default":"Not considered: contact system admin (1)",
+				"forsed":"Not considered: contact system admin (2)",
+				"late_harbor_arrival":"Not considered: cargo closing",
+				"early_harbor_arrival":"Not consderedi: cargo opening",
+				"early_harbor_departure":"Not considered: earliest pickup",
+				"late_harbor_departure":"Not considered: latest pickup",
+				"no_match_terminal_workingtime":"Not considered: terminal open time (1)",
+				"no_match_inlandterminal_workingtime":"Not considered: Inland terminal working time do not match",
+				"early_inland_departure":"Not considered: too early departure from inland terminal",
+				"late_inland_arrival":"Not considered: too late for latestarrival on inland terminal",
+				"onhold":"Not considered: ON-HOLD",
+				"noterminal":"Not considered: terminal not known",
+				"unplannable":"Not considered: container cannot be planned",
+				"no_match_terminal_opentimes":"Not considered: terminal open time (2)",
+				"not_enough_time_on_inland":"Not considered: time window on inland",
+				"call_fixed":"Not considered: call departured or will departured soon"
+			},
+			"additional":{
+				"set_pickup_vessel":"Date change: pickup date is matched to ETA vessel",
+				"set_closing_vessel":"Date change: closing dare is matched to ETA vessel"
+			}
+
+
+		},
+		"addNoteConfig":{
+			"short":true,
+			"enable":true,
+			"notesShorten":[
+				{
+					"name": "mooringmissing",
+					"n": 0,
+					"type": "error",
+					"storeKeys": [],
+					"template": "staytime can not be calculated because of missed mooring time"
+				},
+				{
+					"name": "unmooringmissing",
+					"n": 1,
+					"type": "error",
+					"storeKeys": [],
+					"template": "staytime can not be calculated because of missed unmooring time"
+				},
+				{
+					"name": "avghandlingmissing",
+					"n": 2,
+					"type": "error",
+					"storeKeys": [],
+					"template": "staytime can not be calculated because of missed avghandling"
+				},
+				{
+					"name": "force_notassigned",
+					"n": 3,
+					"type": "info",
+					"storeKeys": [],
+					"template": "force notassigned"
+				},
+				{
+					"name": "aperak_do_not_plan",
+					"n": 4,
+					"type": "info",
+					"storeKeys": [],
+					"template": "aperak_do_not_plan"
+				},
+				{
+					"name": "noterminal",
+					"n": 5,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "noterminal (voyage:{{v}})"
+				},
+				{
+					"name": "donotplan",
+					"n": 6,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "donotplan (voyage:{{v}})"
+				},
+				{
+					"name": "planning_by_nexusz",
+					"n": 7,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "planning_by_nexusz (voyage:{{v}})"
+				},
+				{
+					"name": "sea_terminal_workingtimes",
+					"n": 8,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} is rejected due to the terminal working times"
+				},
+				{
+					"name": "inland_terminal_workingtimes",
+					"n": 9,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} is rejected due to the inlandterminal working times"
+				},
+				{
+					"name": "harbor_arrival_late",
+					"n": 10,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "Arrival harbour is too late (voyage:{{v}})"
+				},
+				{
+					"name": "harbor_arrival_soon",
+					"n": 11,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "too soon arrives to the harbor (voyage:{{v}})"
+				},
+				{
+					"name": "harbor_departure_soon",
+					"n": 12,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "too soon departures from the harbor (voyage:{{v}})"
+				},
+				{
+					"name": "times",
+					"n": 13,
+					"type": "info",
+					"storeKeys": [],
+					"template": "times"
+				},
+				{
+					"name": "harbor_departure_late",
+					"n": 14,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "too late departures from the harbor (voyage:{{v}})"
+				},
+				{
+					"name": "dde_ddn",
+					"n": 15,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} DDE-DDN rule"
+				},
+				{
+					"name": "teu_capacity",
+					"n": 16,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} is rejected due to the teu capacity"
+				},
+				{
+					"name": "weight_capacity",
+					"n": 17,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} is rejected due to the weight capacity"
+				},
+				{
+					"name": "terminal_visit_handlings",
+					"n": 18,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} is rejected due to the max terminal handling"
+				},
+				{
+					"name": "hc_capacity",
+					"n": 19,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} is rejected due to the hc capacity"
+				},
+				{
+					"name": "teu_maxhandlings",
+					"n": 20,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} is rejected due to the teu maxhandlings"
+				},
+				{
+					"name": "inland_times",
+					"n": 21,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "voyage {{v}} is rejected because of inland time constrains (all constrains, including client working times and truck working times)"
+				},
+				{
+					"name": "filterSoftFixedLoadingDischarge",
+					"n": 22,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} filterSoftFixedLoadingDischarge"
+				},
+				{
+					"name": "filterSoftFixedLoadingDischargeN",
+					"n": 23,
+					"type": "info",
+					"storeKeys": [],
+					"template": "no candidates with filterSoftFixedLoadingDischarge"
+				},
+				{
+					"name": "filterCloseToPickupCargoopening",
+					"n": 24,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} close to Pickup/Cargoopening (filter voyages message)"
+				},
+				{
+					"name": "filterCloseToPickupCargoopeningN",
+					"n": 25,
+					"type": "info",
+					"storeKeys": [],
+					"template": "no candidates which close to Pickup/Cargoopening (filter voyages message)"
+				},
+				{
+					"name": "filterNotVia",
+					"n": 26,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} matches not via terminal"
+				},
+				{
+					"name": "filterNotViaN",
+					"n": 27,
+					"type": "info",
+					"storeKeys": [],
+					"template": "no candidates which match not via terminal"
+				},
+				{
+					"name": "filterSameTerminal",
+					"n": 28,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} go to the same terminal (filter voyages message)"
+				},
+				{
+					"name": "filterSameTerminalN",
+					"n": 29,
+					"type": "info",
+					"storeKeys": [],
+					"template": "no candidates with containers which go to the same terminal (filter voyages message)"
+				},
+				{
+					"name": "filterNTerminals_2",
+					"n": 30,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} ok N Terminals"
+				},
+				{
+					"name": "filterNTerminals_2N",
+					"n": 31,
+					"type": "info",
+					"storeKeys": [],
+					"template": "more than 2 terminals to visit"
+				},
+				{
+					"name": "filterBookingnumber",
+					"n": 32,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} have containers with the same bookingnumber (filter voyages message)"
+				},
+				{
+					"name": "filterBookingnumberN",
+					"n": 33,
+					"type": "info",
+					"storeKeys": [],
+					"template": "no candidates with containers with the same bookingnumber (filter voyages message)"
+				},
+				{
+					"name": "filterPreferredBarge",
+					"n": 34,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} Preferred Barge"
+				},
+				{
+					"name": "filterPreferredContainer",
+					"n": 35,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} Preferred Container"
+				},
+				{
+					"name": "filterModalityPickupClosing",
+					"n": 36,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} Modality Pickup/Closing (filter voyages message) - TODO: turned off at this moment"
+				},
+				{
+					"name": "filterModalityPickupClosingN",
+					"n": 37,
+					"type": "info",
+					"storeKeys": [],
+					"template": "no candidates wich fit Modality Pickup/Closing (filter voyages message) - TODO: turned off at this moment"
+				},
+				{
+					"name": "filterPreference",
+					"n": 38,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} with the preferenced time (filter voyages message) - TODO: turned off at this moment"
+				},
+				{
+					"name": "filterPreferenceN",
+					"n": 39,
+					"type": "info",
+					"storeKeys": [],
+					"template": "no candidates with the preferenced time (filter voyages message) - TODO: turned off at this moment"
+				},
+				{
+					"name": "filterInlandDate",
+					"n": 40,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "{{a}} match inlanddate (filter voyages message) - TODO: turned off at this moment as far as inlanddate is fixed"
+				},
+				{
+					"name": "filterInlandDateN",
+					"n": 41,
+					"type": "info",
+					"storeKeys": [],
+					"template": "inlanddate should be revisited, no corresponding candidates (filter voyages message)  - TODO: turned off at this moment as far as inlanddate is fixed"
+				},
+				{
+					"name": "softfixing",
+					"n": 42,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "softfixing {{v}}"
+				},
+				{
+					"name": "modalityvoyageselected",
+					"n": 43,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "modality voyage selected (select voyage message) {{v}}"
+				},
+				{
+					"name": "modalityvoyageselectedN",
+					"n": 44,
+					"type": "info",
+					"storeKeys": [],
+					"template": "modality voyage not in the list or not specified (select voyage message)"
+				},
+				{
+					"name": "getEarliestEmptyOCT",
+					"n": 45,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "select first voyage if OCT and empty container {{v}}"
+				},
+				{
+					"name": "getEarliestEmptyOCTN",
+					"n": 46,
+					"type": "info",
+					"storeKeys": [],
+					"template": "not emty container or not OCT"
+				},
+				{
+					"name": "getVoyageMinimumTime1",
+					"n": 47,
+					"type": "info",
+					"storeKeys": [],
+					"template": "select barge which depatures from the inland terminal the earliest in case cargoopening is defined (select voyage message), otherwhise latest one is selected"
+				},
+				{
+					"name": "getVoyageMinimumTime2",
+					"n": 48,
+					"type": "info",
+					"storeKeys": [],
+					"template": "select barge which depatures from the harbor terminal the earliest (select voyage message)"
+				},
+				{
+					"name": "getVoyageMinimumTime3",
+					"n": 49,
+					"type": "error",
+					"storeKeys": [],
+					"template": "error: getVoyageMinimumTime (select voyage message)"
+				},
+				{
+					"name": "getClosesToInlandtime",
+					"n": 50,
+					"type": "info",
+					"storeKeys": [],
+					"template": "select barge which is closest to inlandtime (select voyage message)"
+				},
+				{
+					"name": "getClosesToInlandtimeN",
+					"n": 51,
+					"type": "info",
+					"storeKeys": [],
+					"template": "inlandtime is not specified (select voyage message)"
+				},
+				{
+					"name": "filteredCandidates",
+					"n": 52,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "filteredCandidates {{a}}"
+				},
+				{
+					"name": "bestOverCandidates",
+					"n": 53,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "best over the candidates {{v}}"
+				},
+				{
+					"name": "oneOverCandidates",
+					"n": 54,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "one over the candidates {{v}}"
+				},
+				{
+					"name": "selectProposed",
+					"n": 55,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "select proposed {{v}}"
+				},
+				{
+					"name": "selectSoftFixed",
+					"n": 56,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "select soft fixed {{v}}"
+				},
+				{
+					"name": "selectOctEmpty",
+					"n": 57,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "select oct empty {{v}}"
+				},
+				{
+					"name": "selectVoyage",
+					"n": 58,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "select voyage {{v}}"
+				},
+				{
+					"name": "planning_by_nexusz",
+					"n": 59,
+					"type": "info",
+					"storeKeys": [],
+					"template": "planning_by_nexusz"
+				},
+				{
+					"name": "executed",
+					"n": 60,
+					"type": "info",
+					"storeKeys": [],
+					"template": "executed or voyage is already defined"
+				},
+				{
+					"name": "fixed",
+					"n": 61,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "manual fixed voyage {{v}}"
+				},
+				{
+					"name": "voyageissue",
+					"n": 62,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "issue with a voyage: {{v}}"
+				},
+				{
+					"name": "voyageissueConnected",
+					"n": 63,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "issue with a voyage (for a connected trip): {{v}}"
+				},
+				{
+					"name": "init_voyages",
+					"n": 64,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "voyages: {{a}}"
+				},
+				{
+					"name": "removeSelected",
+					"n": 65,
+					"type": "info",
+					"storeKeys": [
+						"a",
+						"n",
+						"N"
+					],
+					"template": "remove container from a voyage because it does not reach to the minhandlings: {{a}}; minhandlings: {{n}}; on a voyage: {{N}}"
+				},
+				{
+					"name": "select_minhandlings",
+					"n": 66,
+					"type": "info",
+					"storeKeys": [
+						"N"
+					],
+					"template": "on a voyage {{N}} containers (when selected)"
+				},
+				{
+					"name": "exaption",
+					"n": 67,
+					"type": "info",
+					"storeKeys": [],
+					"template": "Exaption, smth goes wrong. Most probably there is no corresponding feature or route data"
+				},
+				{
+					"name": "noterminal",
+					"n": 68,
+					"type": "warning",
+					"storeKeys": [],
+					"template": "terminal not specified"
+				},
+				{
+					"name": "unknown",
+					"n": 69,
+					"type": "warning",
+					"storeKeys": [
+						"u"
+					],
+					"template": "unknown {{u}}"
+				},
+				{
+					"name": "preferenced",
+					"n": 70,
+					"type": "info",
+					"storeKeys": [],
+					"template": "preferenced time is set"
+				},
+				{
+					"name": "notraveltime",
+					"n": 71,
+					"type": "warning",
+					"storeKeys": [
+						"a"
+					],
+					"template": "travel time to the next location can not be calculated: {{a}}"
+				},
+				{
+					"name": "notraveltime2",
+					"n": 72,
+					"type": "info",
+					"storeKeys": [],
+					"template": "travel time to the next location can not be calculated: traveltime is not specified to the next location"
+				},
+				{
+					"name": "wrongvisittimestamp",
+					"n": 73,
+					"type": "warning",
+					"storeKeys": [],
+					"template": "visit Timestamp can not be set"
+				},
+				{
+					"name": "selectNumber",
+					"n": 74,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "select by number of containers on a voyage (when selection failed) {{v}}"
+				},
+				{
+					"name": "select",
+					"n": 75,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "select voyage: {{a}}"
+				},
+				{
+					"name": "voyagetype",
+					"n": 76,
+					"type": "info",
+					"storeKeys": [
+						"t",
+						"T"
+					],
+					"template": "voyagetype {{t}} {{T}}"
+				},
+				{
+					"name": "departured",
+					"n": 77,
+					"type": "info",
+					"storeKeys": [
+						"v",
+						"t"
+					],
+					"template": "The call is not being considered because it is departured or will be departured soon {{v}} {{t}}"
+				},
+				{
+					"name": "voyagetypeNotAllowed",
+					"n": 78,
+					"type": "info",
+					"storeKeys": [
+						"t",
+						"T",
+						"v"
+					],
+					"template": "sea terminal not allow voyagetype {{t}} {{T}} {{v}}"
+				},
+				{
+					"name": "planning_by_nexuszNotAllow",
+					"n": 79,
+					"type": "info",
+					"storeKeys": [
+						"t",
+						"T"
+					],
+					"template": "inland terminal not allow planning_by_nexusz {{t}} {{T}}"
+				},
+				{
+					"name": "getEarliest",
+					"n": 80,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "select first available voyage {{v}}"
+				},
+				{
+					"name": "getEarliestN",
+					"n": 81,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "can not select first available voyage"
+				},
+				{
+					"name": "filterEarliestOne",
+					"n": 82,
+					"type": "info",
+					"template": "select the earliest candidate"
+				},
+				{
+					"name": "filterEarliestOneN",
+					"n": 83,
+					"type": "info",
+					"template": "can not select the earliest candidate"
+				},
+				{
+					"name": "minhandlings_notconsidered",
+					"n": 84,
+					"type": "info",
+					"storeKeys": [
+						"v",
+						"t"
+					],
+					"template": "minhandlings not considered {{v}} {{t}}"
+				},
+				{
+					"name": "minhandlings_reached_reject",
+					"n": 85,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "minhandlings reached. Reject the voyage on the minhandlings step  {{v}}"
+				},
+				{
+					"name": "filterModalitySelected",
+					"n": 86,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "modality voyage selected {{a}}"
+				},
+				{
+					"name": "filterModalitySelectedN",
+					"n": 87,
+					"type": "info",
+					"storeKeys": [
+						"a"
+					],
+					"template": "modality voyage not in the list or not specified (select voyage message)"
+				}
+			]
+		}
+	},
+	"truck_planning":{
+		"planningPickupTimeMargin":172800000,
+		"planningClosingTimeMargin":172800000,
+		"planningExportVoyageSplittedMargin":172800000,
+		"planningMaxTime":1814400000,
+		"keepDays":10,
+		"_fixingDayMap":{
+			"timeshift":43200000,
+			"Monday":{
+				"day":3,
+				"week":-1
+			},
+			"Tuesday":{
+				"day":4,
+				"week":-1
+			},
+			"Wednesday":{
+				"day":5,
+				"week":-1
+			},
+			"Thursday":{
+				"day":1,
+				"week":-1
+			},
+			"Friday":{
+				"day":2,
+				"week":-1
+			},
+			"Saturday":{
+				"day":2,
+				"week":-1
+			},
+			"Sunday":{
+				"day":2,
+				"week":-1
+			}
+		},
+		"fixingDayMap":{
+			"timeshift":25200000,
+			"Monday":{
+				"day":1,
+				"week":0
+			},
+			"Tuesday":{
+				"day":2,
+				"week":0
+			},
+			"Wednesday":{
+				"day":3,
+				"week":0
+			},
+			"Thursday":{
+				"day":4,
+				"week":0
+			},
+			"Friday":{
+				"day":5,
+				"week":0
+			},
+			"Saturday":{
+				"day":6,
+				"week":0
+			},
+			"Sunday":{
+				"day":0,
+				"week":0
+			}
+		},
+		"softFixingDayMap":{
+			"timeshift":0,
+			"Monday":{
+				"day":3,
+				"week":0
+			},
+			"Tuesday":{
+				"day":4,
+				"week":0
+			},
+			"Wednesday":{
+				"day":5,
+				"week":0
+			},
+			"Thursday":{
+				"day":1,
+				"week":1
+			},
+			"Friday":{
+				"day":2,
+				"week":1
+			},
+			"Saturday":{
+				"day":2,
+				"week":1
+			},
+			"Sunday":{
+				"day":2,
+				"week":0
+			}
+		}
+	},
+	"aperak":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/aperak.json"]}},
+	"pushplan":{
+		"sendreport":[
+			{
+				"name":"unknown_call",
+				"enable":true,
+				"message":{
+					"from":"dev.mail.for.testig@gmail.com",
+					"to":"dev.mail.for.testig@gmail.com",
+					"subject":"Unknown Call"
+				}
+			}
+		]
+	},
+	"inmemory_tmp_mongo":false,
+	"cacheDb":true
+}

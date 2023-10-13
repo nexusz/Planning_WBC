@@ -1,0 +1,353 @@
+{
+	"templates":{
+		"barge_schedule":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/schedules/barge_schedule.json"]}},
+		"container_planning_details":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/container_planning_details.json"]}},
+		"barge_planning":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/planning.json"]}},
+		"bargeplanning_list":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/orderbargelistplanning.json"]}},
+		"bargeplanning_list2":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/orderbargelistplanning2.json"]}},
+		"orderbargelistplanning_termdif":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/orderbargelistplanning_termdif.json"]}},
+
+		"propose_barge":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/schedules/propose_barge.json"]}},
+
+		"truck_daily_schedule":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/schedules/truck_daily_schedule.json"]}},
+		"truck_daily_schedule_list":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/schedules/truck_daily_schedule_list.json"]}},
+
+		"truckplanning":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/truck_planning/truckplanning.json"]}},
+		
+		"truck_planning_trucklist":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/truck_planning/truck_planning_trucklist.json"]}},
+		"truck_planning_trucklist_clients":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/truck_planning/truck_planning_trucklist_clients.json"]}},
+		"truck_planning_pertruck_days_dropdown":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/truck_planning/truck_planning_pertruck_days_dropdown.json"]}},
+
+		"truck_trip_duration":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/schedules/truck_trip_duration.json"]}},
+
+
+		"truck_daily_schedule_dropdown":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/schedules/truck_daily_schedule_dropdown.json"]}},
+		"inlandterminal_dropdown":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/inlandterminal_dropdown.json"]}},
+
+		"terminal_visits":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/terminal_visits/terminal_visits.json"]}},
+		"terminal_visits_list":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/terminal_visits/terminal_visits_list.json"]}}
+		
+
+	},
+	"db":{
+		"morphjs":"mongodb://localhost:27017/morphjs"
+	},
+	"propose_barge":{
+		"time_begin":259200000,
+		"importThreshold":10,
+		"exportThreshold":10,
+		"totalThreshold":10,
+
+		"inlandterminals":{
+			"GRO":{
+				"inlandterminal" : "GRO",
+				"key":"G",
+				"inharbor_time":129600000,
+				"harbor_inland_time":129600000,
+				"inland_time":129600000,
+				"inland_harbor_time":129600000,
+				"capacity" : 156,
+				"size" : 80,
+				"capacityweight" : 2450000,
+				"maxh" : 72
+			},
+			"LEE":{
+				"inlandterminal" : "LEE",
+				"key":"L",
+				"inharbor_time":129600000,
+				"harbor_inland_time":129600000,
+				"inland_time":129600000,
+				"inland_harbor_time":129600000,
+				"capacity" : 156,
+				"size" : 80,
+				"capacityweight" : 2450000,
+				"maxh" : 72
+			},
+			"MEP":{
+				"inlandterminal" : "MEP",
+				"key":"M",
+				"inharbor_time":129600000,
+				"harbor_inland_time":129600000,
+				"inland_time":129600000,
+				"inland_harbor_time":129600000,
+				"capacity" : 156,
+				"size" : 80,
+				"capacityweight" : 2450000,
+				"maxh" : 72
+			},
+			"IJDT":{
+				"inlandterminal" : "IJDT",
+				"key":"K",
+				"inharbor_time":129600000,
+				"harbor_inland_time":129600000,
+				"inland_time":129600000,
+				"inland_harbor_time":129600000,
+				"capacity" : 156,
+				"size" : 80,
+				"capacityweight" : 2450000,
+				"maxh" : 72
+			}
+		}
+	},
+	"containers_planning":{
+		"defaults":{
+			"closing":{
+				"margin":57600000,
+				"generated":{
+					"timeshift":1296000000
+				},
+				"cargoopeningMargin":0,
+				"cargoopeningDefaultTimeshift":518400000 
+			},
+			"pickup":{
+				"margin":57600000,
+				"latestpickupMargin":21600000
+			},
+			"truckTripDuration":{
+				"terminalLoading":300000,
+				"terminalDischarge":300000,
+				"toClient":1800000,
+				"fromClient":1800000,
+				"fromClientPerTerminal":{
+					"MEP":3600000
+				},
+				"toClientPerTerminal":{
+					"MEP":3600000
+				},
+				"coupleDecouple":1200000,
+				"loadingDischarge":3600000
+			},
+			"truckDelays":{
+				"inlandLoadContainerTime":300000,
+				"clientContainerDelay":300000,
+				"clientDecoupleDelay":300000
+			},
+			"inlandTerminalDelays":{
+				"inlandTerminalDelay":600000
+			},
+			"harbor":{
+				"description":"taiken into account for terminal working times",
+				"toTerminalTime":10800000,
+				"fromTerminalTime":10800000
+			},
+			"truckWorkingSchedule": [
+				{
+					"day" : "1",
+					"dayname" : "Monday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				},
+				{
+					"day" : "2",
+					"dayname" : "Tuesday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				},
+				{
+					"day" : "3",
+					"dayname" : "Wednesday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				},
+				{
+					"day" : "4",
+					"dayname" : "Thursday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				},
+				{
+					"day" : "5",
+					"dayname" : "Friday",
+					"loadopentime" : 25200000,
+					"loadclosetime" : 79200000,
+					"dischargeopentime" : 25200000,
+					"dischargeclosetime" : 79200000
+				}
+			]
+		},
+		"bargeplanning":{
+			"end_voyage_timewindow":4838400000
+		},
+		"bergeplanning_filters":[
+			{
+				"name":"filterInlandDate",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterModalityPickupClosing",
+				"description":"",
+				"enable":false
+			},
+			{
+				"name":"filterPreference",
+				"description":"",
+				"enable":true
+			},
+			{
+				"name":"filterCloseToClosing",
+				"description":"",
+				"enable":true
+			},
+			{
+				"name":"filterBookingnumber",
+				"description":"",
+				"enable":true
+			},
+			{
+				"name":"filterSameTerminal",
+				"description":"",
+				"enable":true
+			}
+		],
+		"bargeschedule":{
+			"endtimewindow":5443200000 
+		},
+		"bargeplanning_voyage_info_descriptions":{
+			"selected":{
+				"_default":"Selected",
+				"softfixing":"Selected: soft fix",
+				"one_candidate":"Selected: one candidate",
+				"modality_time_fixed":"Selected: manual (time) fix"
+			},
+			"candidate":{
+				"_default":"Candidate"
+			},
+			"rejected":{
+				"_default":"Rejected",
+				"teu_capacity":"Rejected: exceeding teu capacity",
+				"weight_capacity":"Rejected: exceeding weight capacity",
+				"hc_capacity":"Rejected: exceeding HC capacity",
+				"inlandtimes_conflict":"Rejected: time window on inland",
+				"minhandlings_not_reach":"Rejected: minimum call size not reached",
+				"teu_maxhandlings":"Rejected: maximum call size exceeded"
+			},
+			"notconsidered":{
+				"_default":"Not considered: contact system admin",
+				"forsed":"Not considered: contact system admin",
+				"late_harbor_arrival":"Not considered: cargo closing",
+				"early_harbor_arrival":"Not considered: cargo opening",
+				"early_harbor_departure":"Not considered: earliest pickup",
+				"late_harbor_departure":"Not considered: latest pickup",
+				"no_match_terminal_workingtime":"Not considered: terminal open time",
+				"early_inland_departure":"Not considered: too early departure from inland terminal",
+				"late_inland_arrival":"Not considered: too late for latest arrival on inland terminal",
+				"onhold":"Not considered: ON-HOLD",
+				"noterminal":"Not considered: terminal not known",
+				"unplannable":"rNnot considered: container cannot be planned",
+				"no_match_terminal_opentimes":"Not considered: terminal open times",
+				"not_enough_time_on_inland":"Not considered: time window on inland"
+			}
+
+
+		}
+	},
+	"truck_planning":{
+		"planningPickupTimeMargin":172800000,
+		"planningClosingTimeMargin":172800000,
+		"planningExportVoyageSplittedMargin":172800000,
+		"planningMaxTime":1814400000,
+		"keepDays":10,
+		"_fixingDayMap":{
+			"timeshift":43200000,
+			"Monday":{
+				"day":3,
+				"week":-1
+			},
+			"Tuesday":{
+				"day":4,
+				"week":-1
+			},
+			"Wednesday":{
+				"day":5,
+				"week":-1
+			},
+			"Thursday":{
+				"day":1,
+				"week":-1
+			},
+			"Friday":{
+				"day":2,
+				"week":-1
+			},
+			"Saturday":{
+				"day":2,
+				"week":-1
+			},
+			"Sunday":{
+				"day":2,
+				"week":-1
+			}
+		},
+		"fixingDayMap":{
+			"timeshift":25200000,
+			"Monday":{
+				"day":1,
+				"week":0
+			},
+			"Tuesday":{
+				"day":2,
+				"week":0
+			},
+			"Wednesday":{
+				"day":3,
+				"week":0
+			},
+			"Thursday":{
+				"day":4,
+				"week":0
+			},
+			"Friday":{
+				"day":5,
+				"week":0
+			},
+			"Saturday":{
+				"day":6,
+				"week":0
+			},
+			"Sunday":{
+				"day":0,
+				"week":0
+			}
+		},
+		"softFixingDayMap":{
+			"timeshift":0,
+			"Monday":{
+				"day":3,
+				"week":0
+			},
+			"Tuesday":{
+				"day":4,
+				"week":0
+			},
+			"Wednesday":{
+				"day":5,
+				"week":0
+			},
+			"Thursday":{
+				"day":1,
+				"week":1
+			},
+			"Friday":{
+				"day":2,
+				"week":1
+			},
+			"Saturday":{
+				"day":2,
+				"week":1
+			},
+			"Sunday":{
+				"day":2,
+				"week":0
+			}
+		}
+	}
+}

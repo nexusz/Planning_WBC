@@ -1,0 +1,36 @@
+{
+	"templates":{
+		"bargeplanning":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/bargeplanning.json"]}}
+	},
+	"helpers":{"$require":{"$utils.concat.selective":["$scriptDir","helpers.js"]}},
+	"url":{
+		"orderparser":"http://localhost:8002",
+		"verification": "http://localhost:8080/InSight/OrderVerification",
+		"filemanagement":"http://localhost:8007"
+	},
+	"port":{"$utils.or":[{"$getVariable":"env.MORPHROUTERRCT_PORT"},5001]},
+	"httpsOptions":{
+		"key":{
+			"$if":{"$getVariable":"env.MORPHROUTERRCT_SERVER_KEY_FILE"},
+			"$then":{
+				"$fs.readFile":"$env.MORPHROUTERRCT_SERVER_KEY_FILE"
+			}
+		},
+		"cert":{
+			"$if":{"$getVariable":"env.MORPHROUTERRCT_SERVER_CERT_FILE"},
+			"$then":{
+				"$fs.readFile":"$env.MORPHROUTERRCT_SERVER_CERT_FILE"
+			}
+		},
+		"passphrase":{
+			"$if":{"$getVariable":"env.MORPHROUTERRCT_SERVER_PASSPHRASE"},
+			"$then":"$env.MORPHROUTERRCT_SERVER_PASSPHRASE"
+		},
+		"pfx":{
+			"$if":{"$getVariable":"env.MORPHROUTERRCT_SERVER_PFX_FILE"},
+			"$then":{
+				"$fs.readFile":["$env.MORPHROUTERRCT_SERVER_PFX_FILE","buffer"]
+			}
+		}
+	}
+}
