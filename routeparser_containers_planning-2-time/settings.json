@@ -357,13 +357,13 @@
 		},
 			"bergeplanning_filters":[
 			{
-				"name":"filterModalitySelected",
-				"description":"select modality call",
+				"name":"filterEarliestOne",
+				"description":"select earliest possible candidate",
 				"enable":true
 			},
 			{
-				"name":"filterEarliestOne",
-				"description":"select earliest possible candidate",
+				"name":"filterModalitySelected",
+				"description":"select modality call",
 				"enable":true
 			},
 			{
