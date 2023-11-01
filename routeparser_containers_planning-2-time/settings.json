@@ -280,7 +280,7 @@
 			},
 			"pickup":{
 				"margin":0,
-				"latestpickupMargin":21600000
+				"latestpickupMargin":0
 			},
 			"truckTripDuration":{
 				"terminalLoading":300000,
@@ -1209,6 +1209,15 @@
 						"a"
 					],
 					"template": "modality voyage not in the list or not specified (select voyage message)"
+				},
+				{
+					"name": "latest_arrival",
+					"n": 88,
+					"type": "info",
+					"storeKeys": [
+						"v"
+					],
+					"template": "to late arrival to the inland terminal (voyage: {{v}} )"
 				}
 			]
 		}
