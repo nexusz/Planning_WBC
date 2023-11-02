@@ -1337,5 +1337,10 @@
 		]
 	},
 	"inmemory_tmp_mongo":false,
-	"cacheDb":true
+	"cacheDb":true,
+	"plan_csv_path":{
+		"OCT":"/home/nlink/callchanges/push_plan_oct.csv",
+		"MCT":"/home/nlink/callchanges/push_plan_mct.csv",
+		"VOS":"/home/nlink/callchanges/push_plan_vos.csv"
+	}
 }
