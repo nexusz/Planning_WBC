@@ -448,7 +448,7 @@
 				"aperak_do_not_plan":"Not considered: not planned because of aperak message",
 				"_default":"Not considered: contact system admin (1)",
 				"forsed":"Not considered: contact system admin (2)",
-				"late_harbor_arrival":"Not considered: cargo closing",
+				"late_harbor_arrival":"Not considered: cargo closing or latest pickup",
 				"early_harbor_arrival":"Not consderedi: cargo opening",
 				"early_harbor_departure":"Not considered: earliest pickup",
 				"late_harbor_departure":"Not considered: latest pickup",
