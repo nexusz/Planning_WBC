@@ -1342,5 +1342,263 @@
 		"OCT":"/home/nlink/callchanges/push_plan_oct.csv",
 		"MCT":"/home/nlink/callchanges/push_plan_mct.csv",
 		"VOS":"/home/nlink/callchanges/push_plan_vos.csv"
-	}
+	},
+	"fixCallSchedule":[
+		{
+			"id":"VOS_Import_Workday",
+			"inlandterminal":"VOS",
+			"voyagetype":"Import",
+			"fixedwindow":"W",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 16h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"VOS_Import_Weekend",
+			"inlandterminal":"VOS",
+			"voyagetype":"Import",
+			"fixedwindow":"W",
+			"day":[5],
+			"begin":"0d 16h 00m",
+			"fixend_D":"4d 00h 00m"
+		},
+		{
+			"id":"VOS_Export_Workday",
+			"inlandterminal":"VOS",
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 08h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"VOS_Export_Weekend",
+			"inlandterminal":"VOS",
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[5],
+			"begin":"0d 08h 00m",
+			"fixend_D":"4d 00h 00m"
+		},
+		{
+			"id":"OCT_Import_Workday",
+			"inlandterminal":"OCT",
+			"voyagetype":"Import",
+			"fixedwindow":"W",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 16h 30m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"OCT_Import_Weekend",
+			"inlandterminal":"OCT",
+			"voyagetype":"Import",
+			"fixedwindow":"W",
+			"day":[5],
+			"begin":"0d 16h 30m",
+			"fixend_D":"4d 00h 00m"
+		},
+
+		{
+			"id":"OCT_Export_Workday_default_cover",
+			"inlandterminal":"OCT",
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 16h 30m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"OCT_Export_Weekend_default_cover",
+			"inlandterminal":"OCT",
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[5],
+			"begin":"0d 16h 30m",
+			"fixend_D":"4d 00h 00m"
+		},
+		{
+			"id":"OCT_Export_1_DELTA",
+			"inlandterminal":"OCT",
+			"terminal":["ECTDDE","ECTDDN","ECTDDW"],
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[1],
+			"begin":"0d 11h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"OCT_Export_1_APM2",
+			"inlandterminal":"OCT",
+			"terminal":["APM2"],
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[1],
+			"begin":"0d 16h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"OCT_Export_1_EMX",
+			"inlandterminal":"OCT",
+			"terminal":["EMX"],
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[2],
+			"begin":"0d 16h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"OCT_Export_1_RWG",
+			"inlandterminal":"OCT",
+			"terminal":["RWG"],
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[1],
+			"begin":"0d 16h 00m",
+			"fixend_D":"3d 00h 00m"
+		},
+		{
+			"id":"OCT_Export_2_DELTA",
+			"inlandterminal":"OCT",
+			"terminal":["ECTDDE","ECTDDN","ECTDDW"],
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[2],
+			"begin":"0d 16h 30m",
+			"fixend_D":"3d 00h 00m"
+		},
+		{
+			"id":"OCT_Export_3_RWG",
+			"inlandterminal":"OCT",
+			"terminal":["RWG"],
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[3],
+			"begin":"0d 16h 30m",
+			"fixend_D":"3d 00h 00m"
+		},
+		{
+			"id":"OCT_Export_3_EMX",
+			"inlandterminal":"OCT",
+			"terminal":["EMX"],
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[4],
+			"begin":"0d 16h 30m",
+			"fixend_D":"3d 00h 00m"
+		},
+
+		{
+			"id":"MCT_Import_Workday",
+			"inlandterminal":"MCT",
+			"voyagetype":"Import",
+			"fixedwindow":"W",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 16h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"MCT_Import_Weekend",
+			"inlandterminal":"MCT",
+			"voyagetype":"Import",
+			"fixedwindow":"W",
+			"day":[5],
+			"begin":"0d 16h 00m",
+			"fixend_D":"4d 00h 00m"
+		},
+
+		{
+			"id":"MCT_Export_Workday_default_cover",
+			"inlandterminal":"MCT",
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 16h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"MCT_Export_Weekend_default_cover",
+			"inlandterminal":"MCT",
+			"voyagetype":"Export",
+			"fixedwindow":"W",
+			"day":[5],
+			"begin":"0d 16h 00m",
+			"fixend_D":"4d 00h 00m"
+		},
+
+		{
+			"id":"MCT_Export_4_APM2",
+			"inlandterminal":"MCT",
+			"voyagetype":"Export",
+			"terminal":["APM2"],
+			"fixedwindow":"W",
+			"day":[4],
+			"begin":"0d 16h 00m",
+			"fixend_D":"4d 00h 00m"
+		},
+		{
+			"id":"MCT_Export_5_APM2",
+			"inlandterminal":"MCT",
+			"voyagetype":"Export",
+			"terminal":["APM2"],
+			"fixedwindow":"W",
+			"day":[5],
+			"begin":"0d 16h 00m",
+			"fixend_D":"5d 00h 00m"
+		},
+		{
+			"id":"MCT_Export_5_EMX",
+			"inlandterminal":"MCT",
+			"voyagetype":"Export",
+			"terminal":["EMX"],
+			"fixedwindow":"W",
+			"day":[1],
+			"begin":"0d 16h 00m",
+			"fixend_D":"3d 00h 00m"
+		},
+		{
+			"id":"MCT_Export_3_DELTA",
+			"inlandterminal":"MCT",
+			"voyagetype":"Export",
+			"terminal":["ECTDDE","ECTDDN","ECTDDW"],
+			"fixedwindow":"W",
+			"day":[3],
+			"begin":"0d 14h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"MCT_Export_3_HPD2_APM2",
+			"inlandterminal":"MCT",
+			"voyagetype":"Export",
+			"terminal":["HPD2","APM2"],
+			"fixedwindow":"W",
+			"day":[2],
+			"begin":"0d 16h 00m",
+			"fixend_D":"3d 00h 00m"
+		},
+		{
+			"id":"MCT_Export_3_DELTA",
+			"inlandterminal":"MCT",
+			"voyagetype":"Export",
+			"terminal":["ECTDDE","ECTDDN","ECTDDW"],
+			"fixedwindow":"W",
+			"day":[3],
+			"begin":"0d 16h 00m",
+			"fixend_D":"3d 00h 00m"
+		},
+		{
+			"id":"Workday_default",
+			"fixedwindow":"N",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 16h 30m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"Weekend_default",
+			"fixedwindow":"N",
+			"day":[5],
+			"begin":"0d 16h 30m",
+			"fixend_D":"4d 00h 00m"
+		}
+	]
 }
