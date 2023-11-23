@@ -355,7 +355,12 @@
 		"bargeplanning":{
 			"end_voyage_timewindow":4838400000
 		},
-			"bergeplanning_filters":[
+		"bergeplanning_filters":[
+			{
+				"name":"filterModalityManualSelected",
+				"description":"select modality manual call",
+				"enable":true
+			},
 			{
 				"name":"filterEarliestOne",
 				"description":"select earliest possible candidate",
