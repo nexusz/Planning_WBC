@@ -970,7 +970,7 @@
 					"name": "planning_by_nexusz",
 					"n": 59,
 					"type": "info",
-					"storeKeys": [],
+					"storeKeys": ["v"],
 					"template": "planning_by_nexusz"
 				},
 				{
@@ -1144,7 +1144,8 @@
 					"type": "info",
 					"storeKeys": [
 						"t",
-						"T"
+						"T",
+						"v"
 					],
 					"template": "inland terminal not allow planning_by_nexusz {{t}} {{T}}"
 				},
