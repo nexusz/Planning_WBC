@@ -355,7 +355,7 @@
 		"bargeplanning":{
 			"end_voyage_timewindow":4838400000
 		},
-		"bergeplanning_filters":[
+		"bargeplanning_filters":[
 			{
 				"name":"filterModalityManualSelected",
 				"description":"select modality manual call",
