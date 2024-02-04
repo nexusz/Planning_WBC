@@ -355,71 +355,316 @@
 		"bargeplanning":{
 			"end_voyage_timewindow":4838400000
 		},
+		"pickup_closing_dates_rules":{
+			"getPickupDates":[
+				{
+					"name":"VOS_expecteddeparture",
+					"allow":true
+				},
+				{
+					"name":"expecteddeparture",
+					"allow":true
+				},
+				{
+					"name":"default_generated",
+					"allow":true
+				},
+				{
+					"name":"fromdeparturedate_toarrivaldate",
+					"allow":true
+				},
+				{
+					"name":"latestpickup",
+					"allow":true
+				}
+			],
+			"getPickupDatesHub":[
+				{
+					"name":"VOS_expecteddeparture",
+					"allow":true
+				},
+				{
+					"name":"default_generated",
+					"allow":true
+				},
+				{
+					"name":"expectedarrival_pickuptime",
+					"allow":true
+				},
+				{
+					"name":"fromdeparturedate_toarrivaldate",
+					"allow":true
+				},
+				{
+					"name":"latestpickup",
+					"allow":true
+				}
+			],
+			"getClosingDates":[
+				{
+					"name":"fullonexport",
+					"allow":true
+				},
+				{
+					"name":"fromdeparturedate",
+					"allow":true
+				},
+				{
+					"name":"cargoopening",
+					"allow":true
+				}
+			],
+			"getClosingDatesHub":[
+				{
+					"name":"fullonexport",
+					"allow":true
+				},
+				{
+					"name":"fromdeparturedate",
+					"allow":true
+				},
+				{
+					"name":"cargoopening",
+					"allow":true
+				}
+			]
+		},
+		"bargeplanning_strict_rules":[
+			{
+				"name":"force_notassigned",
+				"enable":true
+			},
+			{
+				"name":"aperak_do_not_plan",
+				"enable":true
+			},
+			{
+				"name":"selected",
+				"enable":true
+			},
+			{
+				"name":"bargeexport_bargeimport",
+				"enable":true
+			},
+			{
+				"name":"inlandterminal",
+				"enable":true
+			},
+			{
+				"name":"terminal_donotplan",
+				"enable":true
+			},
+			{
+				"name":"fixed_call",
+				"enable":true
+			},
+			{
+				"name":"terminal",
+				"enable":true
+			},
+			{
+				"name":"planning_by_nexusz_and_inlandterminal",
+				"enable":true
+			},
+			{
+				"name":"terminal_workingtimes",
+				"enable":true
+			},
+			{
+				"name":"inlandterminal_workingtimes",
+				"enable":true
+			},
+			{
+				"name":"fixed_call_",
+				"enable":true
+			},
+			{
+				"name":"harbor_times",
+				"enable":true
+			},
+			{
+				"name":"inland_times",
+				"enable":true
+			},
+			{
+				"name":"one_to_many",
+				"enable":true
+			},
+			{
+				"name":"DDN_10_via_DDE",
+				"enable":true
+			},
+			{
+				"name":"teu_capacity",
+				"enable":true
+			},
+			{
+				"name":"weight_capacity",
+				"enable":true
+			},
+			{
+				"name":"terminal_visit_handlings",
+				"enable":true
+			},
+			{
+				"name":"terminal_visit_handlings_",
+				"enable":true
+			},
+			{
+				"name":"barge_terminallimit",
+				"enable":true
+			},
+			{
+				"name":"visit_handlings",
+				"enable":true
+			},
+			{
+				"name":"hc_capacity",
+				"enable":false
+			},
+			{
+				"name":"maxhandlings",
+				"enable":true
+			}
+		],
+		"bargeplanning_ordering_rules":[
+			{
+				"name":"preferred",
+				"enable":true
+			},
+			{
+				"name":"one_candidate",
+				"enable":true
+			},
+			{
+				"name":"reefer",
+				"enable":true
+			},
+			{
+				"name":"manually_selected",
+				"enable":true
+			},
+			{
+				"name":"priority_delivery",
+				"enable":true
+			},
+			{
+				"name":"earliest_first",
+				"enable":true
+			},
+			{
+				"name":"less_candidates_first",
+				"enable":true
+			},
+			{
+				"name":"full_first",
+				"enable":true
+			}
+		],
 		"bargeplanning_filters":[
 			{
 				"name":"filterModalityManualSelected",
 				"description":"select modality manual call",
-				"enable":true
+				"enable":true,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterEarliestOne",
 				"description":"select earliest possible candidate",
-				"enable":true
+				"enable":true,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterModalitySelected",
 				"description":"select modality call",
-				"enable":true
+				"enable":true,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterPreferredContainer",
 				"description":"if container is preffered then select it the faster the possible",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterPreferredBarge",
 				"description":"according to the busines rules some barges are more preffered. For example Bodensee and Mironi business rule: only transport containers from BTTBOZ and VOS when there is a call and give it a higher preference",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterNotVia",
 				"description":"",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterInlandDate",
 				"description":"",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterModalityPickupClosing",
 				"description":"",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterPreference",
 				"description":"",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterBookingnumber",
 				"description":"",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterCloseToPickupCargoopening",
 				"description":"",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterSameTerminal",
 				"description":"",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			},
 			{
 				"name":"filterNTerminals_2",
 				"description":"",
-				"enable":false
+				"enable":false,
+				"inlandterminal":"all",
+				"terminal":"all",
+				"voyagetype":"all"
 			}
 		],
 		"bargeschedule":{
