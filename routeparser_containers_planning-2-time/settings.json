@@ -358,12 +358,14 @@
 		"pickup_closing_dates_rules":{
 			"getPickupDates":[
 				{
-					"name":"VOS_expecteddeparture",
-					"allow":true
+					"name":"pickup_overload_by_expecteddeparture_if_gt",
+					"allow":true,
+					"inlandterminals":["VOS"]
 				},
 				{
 					"name":"expecteddeparture",
-					"allow":true
+					"allow":true,
+					"inlandterminals":["MCT","OCT","VOS"]
 				},
 				{
 					"name":"default_generated",
@@ -380,12 +382,19 @@
 			],
 			"getPickupDatesHub":[
 				{
-					"name":"VOS_expecteddeparture",
-					"allow":true
+					"name":"pickup_overload_by_expecteddeparture_if_gt",
+					"allow":true,
+					"inlandterminals":["VOS"]
+				},
+				{
+					"name":"expecteddeparture",
+					"allow":true,
+					"inlandterminals":["MCT","OCT","VOS"]
 				},
 				{
 					"name":"default_generated",
-					"allow":true
+					"allow":true,
+					"inlandterminals":["MCT","OCT"]
 				},
 				{
 					"name":"expectedarrival_pickuptime",
@@ -410,8 +419,15 @@
 					"allow":true
 				},
 				{
-					"name":"cargoopening",
+					"name":"define_cargoopening",
 					"allow":true
+				},
+				{
+					"name":"cargoopening_ifNE_from_closing",
+					"allow":true,
+					"inlandterminals":["MCT"],
+					"description":"if cargoopening does not exists use closing time-timeShift",
+					"timeShift":604800000
 				}
 			],
 			"getClosingDatesHub":[
@@ -424,8 +440,16 @@
 					"allow":true
 				},
 				{
-					"name":"cargoopening",
-					"allow":true
+					"name":"cargoopening_default",
+					"allow":true,
+					"description":"Default cargoopening: container.route.closing.cargoopening or vesselinfo.expecteddeparture-5d"
+				},
+				{
+					"name":"cargoopening_ifNE_from_closing",
+					"allow":true,
+					"inlandterminals":["MCT"],
+					"description":"if cargoopening does not exists use closing time-timeShift",
+					"timeShift":604800000
 				}
 			]
 		},
@@ -484,7 +508,14 @@
 			},
 			{
 				"name":"inland_times",
-				"enable":true
+				"enable":true,
+				"inlandterminals":["MCT","OCT"]
+			},
+			{
+				"name":"inland_times",
+				"enable":true,
+				"inlandterminals":["VOS"],
+				"types":["Export"]
 			},
 			{
 				"name":"one_to_many",
@@ -501,6 +532,22 @@
 			{
 				"name":"weight_capacity",
 				"enable":true
+			},
+			{
+				"name":"weight_capacity_fixed",
+				"enable":true,
+				"inlandterminals":["VOS"],
+				"capacityweight":1150000
+			},
+			{
+				"name":"terminal_visit_handlings_inlandterminal",
+				"enable":true,
+				"inlandterminals":["OCT","MCT"]
+			},
+			{
+				"name":"terminal_visit_handlings_inlandterminal_",
+				"enable":true,
+				"inlandterminals":["OCT","MCT"]
 			},
 			{
 				"name":"terminal_visit_handlings",
