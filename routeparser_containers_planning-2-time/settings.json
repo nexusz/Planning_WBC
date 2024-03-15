@@ -412,6 +412,13 @@
 				{
 					"name":"cargoopening",
 					"allow":true
+				},
+				{
+					"name":"cargoopening_ifNE_from_closing",
+					"allow":true,
+					"inlandterminals":["MCT"],
+					"description":"if cargoopening does not exists use closing time-timeShift",
+					"timeShift":604800000
 				}
 			],
 			"getClosingDatesHub":[
@@ -426,6 +433,13 @@
 				{
 					"name":"cargoopening",
 					"allow":true
+				},
+				{
+					"name":"cargoopening_ifNE_from_closing",
+					"allow":true,
+					"inlandterminals":["MCT"],
+					"description":"if cargoopening does not exists use closing time-timeShift",
+					"timeShift":604800000
 				}
 			]
 		},
@@ -480,11 +494,25 @@
 			},
 			{
 				"name":"harbor_times",
-				"enable":true
+				"enable":true,
+				"deny":[
+					{
+						"inlandterminal":"MCT",
+						"voyageType":"Export",
+						"timeType":"maxHarborArrival"
+					}
+				]
 			},
 			{
 				"name":"inland_times",
-				"enable":true
+				"enable":true,
+				"inlandterminals":["VOS","OCT"]
+			},
+			{
+				"name":"inland_times",
+				"enable":true,
+				"inlandterminals":["MCT"],
+				"types":["Export"]
 			},
 			{
 				"name":"one_to_many",
