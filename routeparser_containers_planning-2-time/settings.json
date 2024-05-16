@@ -16,7 +16,9 @@
 		"terminaltimeline_manual":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/barge_planning/terminaltimeline_manual.json"]}},
 
 
-		"push_the_plan":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/addition/push_the_plan2.json"]}}
+		"push_the_plan":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/addition/push_the_plan2.json"]}},
+		"generalstatistic":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/statistical_analysis/general.json"]}},
+		"fromcallstatistic":{"$fs.readJSON":{"$utils.concat.selective":["$scriptDir","/template/statistical_analysis/fromcall.json"]}}
 
 		
 	},
