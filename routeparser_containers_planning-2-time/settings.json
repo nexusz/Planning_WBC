@@ -475,6 +475,10 @@
 				"enable":true
 			},
 			{
+				"name":"enable_disable_call",
+				"enable":true
+			},
+			{
 				"name":"terminal",
 				"enable":true
 			},
@@ -741,7 +745,8 @@
 				"unplannable":"Not considered: container cannot be planned",
 				"no_match_terminal_opentimes":"Not considered: terminal open time (2)",
 				"not_enough_time_on_inland":"Not considered: time window on inland",
-				"call_fixed":"Not considered: call departured or will departured soon"
+				"call_fixed":"Not considered: call departured or will departured soon",
+				"enable_disable_call":"The call is disabled due to the pta-ptd or fixedwindow=N rules"
 			},
 			"additional":{
 				"set_pickup_vessel":"Date change: pickup date is matched to ETA vessel",
