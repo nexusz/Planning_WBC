@@ -538,10 +538,14 @@
 			},
 			{
 				"name":"terminal_visit_handlings",
-				"enable":true
+				"enable":false
 			},
 			{
 				"name":"terminal_visit_handlings_",
+				"enable":false
+			},
+			{
+				"name":"call_visit_handlings",
 				"enable":true
 			},
 			{
@@ -725,7 +729,8 @@
 				"minhandlings_not_reach":"Rejected: minimal call size not reached",
 				"teu_maxhandlings":"Rejected: maximum call size exceeded",
 				"dde_ddn":"Rejected: DDN - DDE over drive exceeded (10 containers only)",
-				"terminal_visit_handlings":"Rejected: maximum call size exceeded"
+				"terminal_visit_handlings":"Rejected: maximum call size exceeded",
+				"call_visit_handlings":"The maximum number of containers on the call has been exceeded"
 			},
 			"notconsidered":{
 				"planning_by_nexusz":"Not considered: not planned by NexusZ",
