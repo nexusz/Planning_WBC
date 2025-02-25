@@ -269,7 +269,8 @@
 		"inlandTerminals":[
 			"VOS",
 			"OCT",
-			"MCT"
+			"MCT",
+			"BTTBOZ"
 		],
 		"defaults":{
 			"closing":{
@@ -1635,6 +1636,42 @@
 		"VOS":"/home/nlink/callchanges/push_plan_vos.csv"
 	},
 	"fixCallSchedule":[
+		{
+			"id":"BBTBOZ_Import_Workday",
+			"inlandterminal":"BBTBOZ",
+			"voyagetype":"Import",
+			"fixedwindow":"Y",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 16h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"BBTBOZ_Import_Weekend",
+			"inlandterminal":"BBTBOZ",
+			"voyagetype":"Import",
+			"fixedwindow":"Y",
+			"day":[5],
+			"begin":"0d 16h 00m",
+			"fixend_D":"4d 00h 00m"
+		},
+		{
+			"id":"BBTBOZ_Export_Workday",
+			"inlandterminal":"BBTBOZ",
+			"voyagetype":"Export",
+			"fixedwindow":"Y",
+			"day":[1,2,3,4,5,6,7],
+			"begin":"0d 08h 00m",
+			"fixend_D":"2d 00h 00m"
+		},
+		{
+			"id":"BBTBOZ_Export_Weekend",
+			"inlandterminal":"BBTBOZ",
+			"voyagetype":"Export",
+			"fixedwindow":"Y",
+			"day":[5],
+			"begin":"0d 08h 00m",
+			"fixend_D":"4d 00h 00m"
+		},
 		{
 			"id":"VOS_Import_Workday",
 			"inlandterminal":"VOS",
