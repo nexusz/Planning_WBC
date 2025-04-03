@@ -522,6 +522,12 @@
 				"types":["Export"]
 			},
 			{
+				"name":"inland_times",
+				"enable":true,
+				"inlandterminals":["BTTBOZ"],
+				"types":["Import"]
+			},
+			{
 				"name":"one_to_many",
 				"enable":true
 			},
